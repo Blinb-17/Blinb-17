@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+{% block title %}Кабинет студента{% endblock %}
+{% block content %}
+<section class="grid-2">
+  <article class="card">
+    <h2>Профиль</h2>
+    {% if profile %}
+      <ul>
+        <li><strong>ФИО:</strong> {{ g.user['full_name'] }}</li>
+        <li><strong>Группа:</strong> {{ profile['group_name'] }}</li>
+        <li><strong>Факультет:</strong> {{ profile['faculty'] }}</li>
+        <li><strong>Год поступления:</strong> {{ profile['enrollment_year'] }}</li>
+      </ul>
+    {% endif %}
+    <p><strong>Средний балл:</strong> {{ avg_grade }}</p>
+  </article>
+
+  <article class="card">
+    <h2>Объявления</h2>
+    {% for item in announcements %}
+      <div class="list-item">
+        <h4>{{ item['title'] }}</h4>
+        <p>{{ item['body'] }}</p>
+        <small class="muted">{{ item['author'] }} • {{ item['created_at'] }}</small>
+      </div>
+    {% else %}
+      <p class="muted">Пока нет объявлений.</p>
+    {% endfor %}
+  </article>
+</section>
+
+<section class="card">
+  <h2>Оценки</h2>
+  <table>
+    <thead>
+      <tr><th>Предмет</th><th>Преподаватель</th><th>Оценка</th><th>Комментарий</th><th>Дата</th></tr>
+    </thead>
+    <tbody>
+    {% for grade in grades %}
+      <tr>
+        <td>{{ grade['subject_name'] }}</td>
+        <td>{{ grade['teacher'] }}</td>
+        <td>{{ grade['value'] }}</td>
+        <td>{{ grade['comment'] }}</td>
+        <td>{{ grade['date_assigned'] }}</td>
+      </tr>
+    {% else %}
+      <tr><td colspan="5">Нет оценок</td></tr>
+    {% endfor %}
+    </tbody>
+  </table>
+</section>
+
+<section class="card">
+  <h2>Посещаемость</h2>
+  <table>
+    <thead>
+      <tr><th>Дата</th><th>Предмет</th><th>Статус</th></tr>
+    </thead>
+    <tbody>
+    {% for item in attendance %}
+      <tr>
+        <td>{{ item['lesson_date'] }}</td>
+        <td>{{ item['subject_name'] }}</td>
+        <td>{{ item['status'] }}</td>
+      </tr>
+    {% else %}
+      <tr><td colspan="3">Нет записей</td></tr>
+    {% endfor %}
+    </tbody>
+  </table>
+</section>
+{% endblock %}

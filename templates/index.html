@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block title %}Добро пожаловать{% endblock %}
+{% block content %}
+<section class="card hero">
+  <h1>Онлайн-дневник студентов</h1>
+  <p>Полноценная LMS-система: оценки, посещаемость, объявления и админ-панель.</p>
+  <div class="actions">
+    <a class="btn" href="{{ url_for('register_student') }}">Регистрация студента</a>
+    <a class="btn" href="{{ url_for('register_admin') }}">Регистрация админа</a>
+    <a class="btn btn-secondary" href="{{ url_for('login') }}">Вход</a>
+  </div>
+</section>
+{% endblock %}

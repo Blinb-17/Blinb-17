@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{% block title %}LMS Diary{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}" />
+</head>
+<body>
+<header class="topbar">
+  <div class="container topbar-content">
+    <a href="{{ url_for('index') }}" class="brand">🎓 LMS Diary</a>
+    <nav>
+      {% if g.user %}
+        <span class="muted">{{ g.user['full_name'] }} ({{ g.user['role'] }})</span>
+        <a href="{{ url_for('logout') }}" class="btn btn-secondary">Выйти</a>
+      {% else %}
+        <a href="{{ url_for('login') }}" class="btn btn-secondary">Вход</a>
+      {% endif %}
+    </nav>
+  </div>
+</header>
+
+<main class="container main-content">
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      <div class="alerts">
+        {% for category, message in messages %}
+          <div class="alert {{ category }}">{{ message }}</div>
+        {% endfor %}
+      </div>
+    {% endif %}
+  {% endwith %}
+
+  {% block content %}{% endblock %}
+</main>
+
+<footer class="container footer">
+  <small>© {{ now.year }} LMS Diary</small>
+</footer>
+</body>
+</html>
