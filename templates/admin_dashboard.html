@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+{% block title %}Админ панель{% endblock %}
+{% block content %}
+<section class="card">
+  <h2>Админ панель</h2>
+  <p>Управление предметами, оценками и объявлениями.</p>
+</section>
+
+<section class="grid-2">
+  <article class="card">
+    <h3>Добавить предмет</h3>
+    <form method="post" action="{{ url_for('create_subject') }}" class="form-grid">
+      <label>Название<input name="name" required /></label>
+      <label>Преподаватель<input name="teacher" required /></label>
+      <button class="btn" type="submit">Создать предмет</button>
+    </form>
+
+    <h4>Список предметов</h4>
+    <ul>
+      {% for s in subjects %}
+      <li>ID {{ s['id'] }} — {{ s['name'] }} ({{ s['teacher'] }})</li>
+      {% else %}
+      <li>Предметов пока нет.</li>
+      {% endfor %}
+    </ul>
+  </article>
+
+  <article class="card">
+    <h3>Добавить оценку</h3>
+    <form method="post" action="{{ url_for('create_grade') }}" class="form-grid">
+      <label>ID студента<input name="student_id" type="number" required /></label>
+      <label>ID предмета<input name="subject_id" type="number" required /></label>
+      <label>Оценка (0-100)<input name="value" type="number" min="0" max="100" required /></label>
+      <label>Комментарий<input name="comment" /></label>
+      <label>Дата<input name="date_assigned" type="date" required /></label>
+      <button class="btn" type="submit">Добавить оценку</button>
+    </form>
+  </article>
+</section>
+
+<section class="card">
+  <h3>Опубликовать объявление</h3>
+  <form method="post" action="{{ url_for('create_announcement') }}" class="form-grid">
+    <label>Заголовок<input name="title" required /></label>
+    <label>Текст<textarea name="body" rows="4" required></textarea></label>
+    <button class="btn" type="submit">Опубликовать</button>
+  </form>
+
+  <h4>Последние объявления</h4>
+  {% for an in announcements %}
+    <div class="list-item">
+      <h4>{{ an['title'] }}</h4>
+      <p>{{ an['body'] }}</p>
+      <small class="muted">{{ an['created_at'] }}</small>
+    </div>
+  {% else %}
+    <p class="muted">Нет объявлений.</p>
+  {% endfor %}
+</section>
+
+<section class="card">
+  <h3>Студенты</h3>
+  <table>
+    <thead>
+      <tr><th>ID</th><th>ФИО</th><th>Email</th><th>Группа</th><th>Факультет</th><th>Год</th></tr>
+    </thead>
+    <tbody>
+      {% for st in students %}
+      <tr>
+        <td>{{ st['id'] }}</td>
+        <td>{{ st['full_name'] }}</td>
+        <td>{{ st['email'] }}</td>
+        <td>{{ st['group_name'] }}</td>
+        <td>{{ st['faculty'] }}</td>
+        <td>{{ st['enrollment_year'] }}</td>
+      </tr>
+      {% else %}
+      <tr><td colspan="6">Студентов нет.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</section>
+{% endblock %}

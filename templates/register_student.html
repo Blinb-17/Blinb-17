@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block title %}Регистрация студента{% endblock %}
+{% block content %}
+<section class="card">
+  <h2>Регистрация студента</h2>
+  <form method="post" class="form-grid">
+    <label>ФИО<input type="text" name="full_name" required /></label>
+    <label>Email<input type="email" name="email" required /></label>
+    <label>Пароль<input type="password" name="password" minlength="8" required /></label>
+    <label>Группа<input type="text" name="group_name" required /></label>
+    <label>Год поступления<input type="number" name="enrollment_year" min="2000" max="2100" required /></label>
+    <label>Факультет<input type="text" name="faculty" required /></label>
+    <button type="submit" class="btn">Зарегистрироваться</button>
+  </form>
+</section>
+{% endblock %}

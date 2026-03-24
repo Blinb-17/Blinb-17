@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block title %}Регистрация администратора{% endblock %}
+{% block content %}
+<section class="card">
+  <h2>Регистрация администратора</h2>
+  <p class="muted">Требуется секретный ключ администратора.</p>
+  <form method="post" class="form-grid">
+    <label>ФИО<input type="text" name="full_name" required /></label>
+    <label>Email<input type="email" name="email" required /></label>
+    <label>Пароль<input type="password" name="password" minlength="10" required /></label>
+    <label>Ключ администратора<input type="password" name="admin_key" required /></label>
+    <button type="submit" class="btn">Зарегистрировать админа</button>
+  </form>
+</section>
+{% endblock %}
